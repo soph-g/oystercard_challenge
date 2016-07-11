@@ -1,3 +1,0 @@
-describe OysterCard do
-
-end
