@@ -36,10 +36,6 @@ describe Oystercard do
       subject = described_class.new
       expect{subject.touch_in(station)}.to(raise_error("Balance is below £#{described_class::MIN_BALANCE}"))
     end
-    it 'records entry station' do
-      subject.touch_in(station)
-      expect(subject.entry_station).to(eq(station))
-    end
   end
 
   describe '#touch_out' do
@@ -51,17 +47,9 @@ describe Oystercard do
       subject.touch_out(station)
       expect(subject).not_to(be_in_journey)
     end
-    it "sets the entry station to nil" do
-      subject.touch_out(station)
-      expect(subject.entry_station).to(eq(nil))
-    end
     it "deducts the fare from the balance" do
       fare = -(described_class::FARE)
       expect{subject.touch_out(station)}.to(change{subject.balance}.by(fare))
-    end
-    it "record exit station" do
-      subject.touch_out(station)
-      expect(subject.exit_station).to(eq(station))
     end
   end
 
@@ -79,17 +67,17 @@ describe Oystercard do
     end
   end
 
-  describe '#journey' do
+  describe '#journeys' do
     before do
       subject.top_up(10)
+    end
+    it 'is empty by default' do
+      expect(subject.journeys).to be_empty
+    end
+    it 'stores a complete journey' do
       subject.touch_in(station)
-    end
-    it 'stores the entry station using an entry station key' do
-      expect(subject.journey).to(eq({entry: station}))
-    end
-    it 'stores the exit station using an exit key' do
-      subject.touch_out("test")
-      expect(subject.journey).to(include({exit: "test"}))
+      subject.touch_out(station)
+      expect(subject.journeys).to eq([{entry_station: station, exit_station: station}])
     end
   end
 
