@@ -1,10 +1,12 @@
+require 'journey'
+
 class Oystercard
 MAX_BALANCE = 90
 MIN_BALANCE = 1
 FARE = 1
   attr_reader :balance, :journeys
 
-  def initialize
+  def initialize()
     @balance = 0
     @journeys = []
   end
