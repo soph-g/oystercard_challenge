@@ -47,11 +47,16 @@ describe Oystercard do
       subject.touch_in(station)
     end
     it "ends an in progress journey" do
-      expect(subject.touch_out).to(eq(nil))
+      subject.touch_out(station)
+      expect(subject.entry_station).to(eq(nil))
     end
     it "deducts the fare from the balance" do
       fare = -(described_class::FARE)
-      expect{subject.touch_out}.to(change{subject.balance}.by(fare))
+      expect{subject.touch_out(station)}.to(change{subject.balance}.by(fare))
+    end
+    it "record exit station" do
+      subject.touch_out(station)
+      expect(subject.exit_station).to(eq(station))
     end
   end
 
@@ -64,7 +69,7 @@ describe Oystercard do
       expect(subject).to(be_in_journey)
     end
     it "is false when a card has been touched out" do
-      subject.touch_out
+      subject.touch_out(station)
       expect(subject).not_to(be_in_journey)
     end
   end
