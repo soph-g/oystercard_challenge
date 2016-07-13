@@ -32,8 +32,8 @@ class Journey
   end
 
   def calculate_zones
-    @zones = [exit_station.zone, entry_station.zone]
-    @zones = (@zones.sort.reverse.reduce(:-)) + 1
+    stations = [exit_station.zone, entry_station.zone]
+    @zones = (stations.sort.reverse.reduce(:-)) + 1
   end
 
   def complete_journey
