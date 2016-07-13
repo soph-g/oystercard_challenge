@@ -9,12 +9,8 @@ describe Journey do
     expect(subject.entry_station).to eq(:station)
   end
 
-  it 'has a default pentaly fair' do
-    expect(subject.penalty_fare).to(eq(Journey::PENALTY_FARE))
-  end
-
-  it 'has a minimum fare' do
-    expect(subject.minimum_fare).to(eq(Journey::MINIMUM_FARE))
+  it 'assigns the penalty fare by default' do
+    expect(subject.fare).to(eq(Journey::PENALTY_FARE))
   end
 
   describe '#in_journey' do
@@ -23,20 +19,21 @@ describe Journey do
     end
   end
 
-  describe '#exit_station' do
+  describe '#end_journey' do
     it 'records the exit station' do
-      expect(subject.exit_station(:station)).to eq(:station)
+      subject.end_journey(:station)
+      expect(subject.exit_station).to eq(:station)
     end
-  end
-
-  describe '#calculate_fare' do
-    it 'assigns the penalty fare by default' do
-      expect(subject.fare).to(eq(Journey::PENALTY_FARE))
+    it 'sets end journey to false' do
+      subject.end_journey(station)
+      expect(subject).not_to be_in_journey
     end
     it 'assigns the minimum fare when a journey is completed' do
-      subject.exit_station(station)
+      subject.end_journey(station)
       expect(subject.fare).to(eq(Journey::MINIMUM_FARE))
     end
+    it 'returns itself when journey ends' do
+      expect(subject.end_journey(station)).to eq(subject)
+    end
   end
-
 end
