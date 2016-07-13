@@ -29,7 +29,8 @@ describe Oystercard do
       subject.top_up(1)
     end
     it "records a journey as in progress" do
-      expect(subject.touch_in(station)).to eq station
+      subject.touch_in(station)
+      expect(subject).to(be_in_journey)
     end
     it 'raises error if balance is below a minimum amount' do
       subject = described_class.new
@@ -47,6 +48,10 @@ describe Oystercard do
       subject.touch_in(station)
     end
     it "ends an in progress journey" do
+      subject.touch_out(station)
+      expect(subject).not_to(be_in_journey)
+    end
+    it "sets the entry station to nil" do
       subject.touch_out(station)
       expect(subject.entry_station).to(eq(nil))
     end
@@ -71,6 +76,20 @@ describe Oystercard do
     it "is false when a card has been touched out" do
       subject.touch_out(station)
       expect(subject).not_to(be_in_journey)
+    end
+  end
+
+  describe '#journey' do
+    before do
+      subject.top_up(10)
+      subject.touch_in(station)
+    end
+    it 'stores the entry station using an entry station key' do
+      expect(subject.journey).to(eq({entry: station}))
+    end
+    it 'stores the exit station using an exit key' do
+      subject.touch_out("test")
+      expect(subject.journey).to(include({exit: "test"}))
     end
   end
 
