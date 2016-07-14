@@ -36,14 +36,15 @@ describe Oystercard do
     end
     it "remembers the entry station" do
       card_with_money.touch_in(station_entered)
-      expect(card_with_money.journeys).to include station_entered
+      expect(card_with_money.journeys).to include {station_entered}
     end
   end
 
   describe '#touch_out' do
     it 'end the journey' do
-      subject.touch_out(station_exited)
-      expect(subject).not_to be_in_journey
+      card_with_money.touch_in(station_entered)
+      card_with_money.touch_out(station_exited)
+      expect(card_with_money).not_to be_in_journey
     end
     it 'charges the user when touching out' do
       card_with_money.touch_in(station_entered)
@@ -58,7 +59,7 @@ describe Oystercard do
     it "journeys knows it's touch out station" do
       card_with_money.touch_in(station_entered)
       card_with_money.touch_out(station_exited)
-      expect(card_with_money.journeys).to include ({:exit_station => "#{station_exited}"})
+      expect(card_with_money.journeys.last).to have_key :exit_station
     end
   end
 
