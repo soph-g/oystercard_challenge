@@ -18,11 +18,20 @@ describe Journey do
       journey.finish(station_exited)
       expect(journey).to(be_complete)
     end
+    it 'is marked as false if only exit station is provided' do
+      journey = described_class.new
+      journey.finish(station_exited)
+      expect(journey).not_to(be_complete)
+    end
   end
   describe '#finish' do
     it 'captures the exit station when a journey ends' do
       journey.finish(station_exited)
       expect(journey.exit_station).to(eq(station_exited))
+    end
+    it 'expects journey to receive fare' do
+      expect(journey).to receive(:fare)
+      journey.finish(station_exited)
     end
   end
 

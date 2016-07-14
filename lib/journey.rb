@@ -7,20 +7,20 @@ class Journey
 
   def initialize(station = nil)
     @entry_station = station
-    @complete = false
+    fare
   end
 
   def complete?
-    @complete
+    !!entry_station && !!exit_station
   end
 
   def finish(station)
     @exit_station = station
-    @complete = true
+    fare
+    self
   end
 
   def fare
-  !!entry_station && !!exit_station ? STANDARD_FARE : PENALTY_FARE
-
+  @fare = complete? ? STANDARD_FARE : PENALTY_FARE
   end
 end
