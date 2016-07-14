@@ -2,12 +2,17 @@ require 'oystercard'
 
 describe Oystercard do
   let(:card_with_money) { Oystercard.new(10) }
-  let(:journey) {[{ entry_station: station_entered, exit_station: station_exited }]}
+  let(:trip) {[{ entry_station: station_entered, exit_station: station_exited }]}
   let(:station_entered) {("Old Street")}
   let(:station_exited) {("Waterloo")}
+  let(:journey) { double(:journey) }
 
   it 'has an empty list of journeys by default' do
     expect(subject.journeys).to be_empty
+  end
+
+  it 'creates a new instance of journey' do
+    expect(subject.journey).to be_a Journey
   end
 
     it 'tells your balance is 0' do
@@ -16,7 +21,7 @@ describe Oystercard do
 
   describe '#top_up' do
    it 'tells you when you top up' do
-       expect{subject.top_up(Oystercard::MINIMUM_FARE)}.to change{subject.balance}.by(Oystercard::MINIMUM_FARE)
+       expect{subject.top_up(1)}.to change{subject.balance}.by(1)
       end
    end
 
@@ -35,8 +40,10 @@ describe Oystercard do
       expect{subject.touch_in(station_entered)}.to raise_error 'Insufficient balance'
     end
     it "remembers the entry station" do
+      # card_with_money.touch_in(station_entered)
+      # expect(card_with_money.journeys).to include {station_entered}
+      expect(card_with_money.journey).to receive :start
       card_with_money.touch_in(station_entered)
-      expect(card_with_money.journeys).to include {station_entered}
     end
   end
 
@@ -54,7 +61,7 @@ describe Oystercard do
     it 'stores a journey' do
       card_with_money.touch_in(station_entered)
       card_with_money.touch_out(station_exited)
-      expect(card_with_money.journeys).to match journey
+      expect(card_with_money.journeys).to match trip
     end
     it "journeys knows it's touch out station" do
       card_with_money.touch_in(station_entered)
