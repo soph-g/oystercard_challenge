@@ -40,8 +40,6 @@ describe Oystercard do
       expect{subject.touch_in(station_entered)}.to raise_error 'Insufficient balance'
     end
     it "remembers the entry station" do
-      # card_with_money.touch_in(station_entered)
-      # expect(card_with_money.journeys).to include {station_entered}
       expect(card_with_money.journey).to receive :start
       card_with_money.touch_in(station_entered)
     end
@@ -57,16 +55,15 @@ describe Oystercard do
       card_with_money.touch_in(station_entered)
       expect { card_with_money.touch_out(station_exited) }.to change {card_with_money.balance}.by(-Oystercard::MINIMUM_FARE)
     end
-
     it 'stores a journey' do
       card_with_money.touch_in(station_entered)
       card_with_money.touch_out(station_exited)
       expect(card_with_money.journeys).to match trip
     end
-    it "journeys knows it's touch out station" do
+    it 'passes the exit station to the journey object' do
       card_with_money.touch_in(station_entered)
+      expect(card_with_money.journey).to receive :finish
       card_with_money.touch_out(station_exited)
-      expect(card_with_money.journeys.last).to have_key :exit_station
     end
   end
 

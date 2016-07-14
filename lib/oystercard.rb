@@ -1,3 +1,5 @@
+require_relative 'journey'
+
 class Oystercard
   DEFAULT_BALANCE = 0
   MAXIMUM_BALANCE = 90
@@ -25,6 +27,7 @@ class Oystercard
 
   def touch_out(station)
     deduct(MINIMUM_FARE)
+    @journey.finish(station)
     @in_journey = false
     @journeys.last.store(:exit_station, station)
   end
