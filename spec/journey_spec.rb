@@ -9,4 +9,11 @@ describe Journey do
   it 'starts the journey and collects the entry station' do
     expect(journey.entry_station).to eq station_entered
   end
+
+  describe '#complete?' do
+    it 'is marked as false when a journey starts' do
+      expect(journey).not_to(be_complete)
+    end
+  end
+
 end
