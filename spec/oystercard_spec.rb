@@ -51,9 +51,19 @@ describe Oystercard do
       card_with_money.touch_out(station_exited)
       expect(card_with_money).not_to be_in_journey
     end
-    it 'charges the user when touching out' do
+    it 'receives the correct fare for completed journey' do
+      call_journey = card_with_money.journey
+      allow(call_journey).to receive :start
       card_with_money.touch_in(station_entered)
-      expect { card_with_money.touch_out(station_exited) }.to change {card_with_money.balance}.by(-Oystercard::MINIMUM_FARE)
+      allow(call_journey).to receive :finish
+      allow(call_journey).to receive(:fare).and_return(1)
+      expect { card_with_money.touch_out(station_exited) }.to change {card_with_money.balance}.by(-call_journey.fare)
+    end
+    it 'receives the correct fare for starting station incompleted journey' do
+      call_journey = card_with_money.journey
+      allow(call_journey).to receive :start
+      allow(call_journey).to receive(:fare).and_return(6)
+      expect { card_with_money.touch_in(station_entered) }.to change {card_with_money.balance}.by(-call_journey.fare)
     end
     it 'stores a journey' do
       card_with_money.touch_in(station_entered)
