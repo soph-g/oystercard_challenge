@@ -16,4 +16,11 @@ describe Journey do
     end
   end
 
+  describe '#finish' do
+    it 'captures the exit station when a journey ends' do
+      journey.finish(station_exited)
+      expect(journey.exit_station).to(eq(station_exited))
+    end
+  end
+
 end
