@@ -14,6 +14,10 @@ describe Journey do
     it 'is marked as false when a journey starts' do
       expect(journey).not_to(be_complete)
     end
+    it 'is marked as true when a journey finishes' do
+      journey.finish(station_exited)
+      expect(journey).to(be_complete)
+    end
   end
 
   describe '#finish' do
