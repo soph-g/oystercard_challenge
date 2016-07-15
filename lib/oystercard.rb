@@ -25,12 +25,12 @@ class Oystercard
   end
 
   def touch_out(station)
-    in_journey? ? @journey : @journey = Journey.new
+    in_journey? ? nil : @journey = Journey.new
     @journey.finish(station)
     deduct(@journey.fare)
     @in_journey = false
     refund
-    @journey = Journey.new
+    #@journey = Journey.new
     #@journeys.last.store(:exit_station, station)
   end
 

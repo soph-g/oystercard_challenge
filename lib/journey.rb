@@ -21,7 +21,7 @@ class Journey
   end
 
   def fare
-  complete? ? MINIMUM_FARE : PENALTY_FARE
+  complete? ? 0 : PENALTY_FARE
   end
 
   def refund_amount
