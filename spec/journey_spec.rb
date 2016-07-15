@@ -37,11 +37,6 @@ describe Journey do
   end
 
   describe '#fare' do
-    #it 'sets the cost of the completed journey' do
-    #  journey.start(station_entered)
-    #  journey.finish(station_exited)
-    #  expect(journey.fare).to eq described_class::MINIMUM_FARE
-    #end
     it 'sets the cost of an incomplete journey with only a starting station' do
       journey = Journey.new(station_entered)
       expect(journey.fare).to eq described_class::PENALTY_FARE
@@ -59,5 +54,4 @@ describe Journey do
       expect(journey.refund_amount).to(eq(5))
     end
   end
-
 end
