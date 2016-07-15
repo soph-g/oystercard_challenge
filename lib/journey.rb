@@ -5,13 +5,9 @@ class Journey
   MINIMUM_FARE = 1
   PENALTY_FARE = 6
 
-  def initialize
-    @entry_station = nil
-    fare
-  end
-
-  def start(station)
+  def initialize(station = nil)
     @entry_station = station
+    fare
   end
 
   def complete?
@@ -27,4 +23,9 @@ class Journey
   def fare
   complete? ? MINIMUM_FARE : PENALTY_FARE
   end
+
+  def refund_amount
+    complete? ? 5 : 0
+  end
+
 end

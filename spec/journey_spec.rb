@@ -5,20 +5,18 @@ describe Journey do
   subject(:journey) {described_class.new}
   let(:station_exited) {double(:station)}
 
-  describe '#start' do
-    it 'collects the entry station' do
-      journey.start(station_entered)
-      expect(journey.entry_station).to eq station_entered
-    end
+  it 'collects the entry station' do
+    journey = described_class.new(station_entered)
+    expect(journey.entry_station).to eq station_entered
   end
 
   describe '#complete?' do
     it 'is marked as false when a journey starts' do
-      journey.start(station_entered)
+      journey = Journey.new(station_entered)
       expect(journey).not_to(be_complete)
     end
     it 'is marked as true when a journey finishes' do
-      journey.start(station_entered)
+      journey = Journey.new(station_entered)
       journey.finish(station_exited)
       expect(journey).to(be_complete)
     end
@@ -39,18 +37,26 @@ describe Journey do
   end
 
   describe '#fare' do
-    it 'sets the cost of the completed journey' do
-      journey.start(station_entered)
-      journey.finish(station_exited)
-      expect(journey.fare).to eq described_class::MINIMUM_FARE
-    end
+    #it 'sets the cost of the completed journey' do
+    #  journey.start(station_entered)
+    #  journey.finish(station_exited)
+    #  expect(journey.fare).to eq described_class::MINIMUM_FARE
+    #end
     it 'sets the cost of an incomplete journey with only a starting station' do
-      journey.start(station_entered)
+      journey = Journey.new(station_entered)
       expect(journey.fare).to eq described_class::PENALTY_FARE
     end
     it 'sets the cost of an incomplete journey with only a finishing station' do
       journey.finish(station_exited)
       expect(journey.fare).to eq described_class::PENALTY_FARE
+    end
+  end
+
+  describe '#refund_amount' do
+    it 'sets the refund amount for a completed journey' do
+      journey = Journey.new(station_entered)
+      journey.finish(station_exited)
+      expect(journey.refund_amount).to(eq(5))
     end
   end
 
