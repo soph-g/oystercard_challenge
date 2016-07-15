@@ -10,9 +10,9 @@ class Journey
     fare
   end
 
-def start(station)
-  @entry_station = station
-end
+  def start(station)
+    @entry_station = station
+  end
 
   def complete?
     !!entry_station && !!exit_station
@@ -25,6 +25,6 @@ end
   end
 
   def fare
-  @fare = complete? ? MINIMUM_FARE : PENALTY_FARE
+  complete? ? MINIMUM_FARE : PENALTY_FARE
   end
 end
