@@ -1,51 +1,55 @@
-# Oystercard
+#Oystercard
 
-Rspec error occuring and stack trace:
+Week 2 Makers Academy Challenge
+
+## User Stories
 
 ```
-/home/ubuntu/workspace/spec/oystercard_spec.rb:1:in `<top (required)>': uninitialized constant Oystercard (NameError)
-        from /usr/local/rvm/gems/ruby-2.3.0/gems/rspec-core-3.5.1/lib/rspec/core/configuration.rb:1435:in `load'
-        from /usr/local/rvm/gems/ruby-2.3.0/gems/rspec-core-3.5.1/lib/rspec/core/configuration.rb:1435:in `block in load_spec_files'
-        from /usr/local/rvm/gems/ruby-2.3.0/gems/rspec-core-3.5.1/lib/rspec/core/configuration.rb:1433:in `each'
-        from /usr/local/rvm/gems/ruby-2.3.0/gems/rspec-core-3.5.1/lib/rspec/core/configuration.rb:1433:in `load_spec_files'
-        from /usr/local/rvm/gems/ruby-2.3.0/gems/rspec-core-3.5.1/lib/rspec/core/runner.rb:100:in `setup'
-        from /usr/local/rvm/gems/ruby-2.3.0/gems/rspec-core-3.5.1/lib/rspec/core/runner.rb:86:in `run'
-        from /usr/local/rvm/gems/ruby-2.3.0/gems/rspec-core-3.5.1/lib/rspec/core/runner.rb:71:in `run'
-        from /usr/local/rvm/gems/ruby-2.3.0/gems/rspec-core-3.5.1/lib/rspec/core/runner.rb:45:in `invoke'
-        from /usr/local/rvm/gems/ruby-2.3.0/gems/rspec-core-3.5.1/exe/rspec:4:in `<top (required)>'
-        from /usr/local/rvm/gems/ruby-2.3.0/bin/rspec:23:in `load'
-        from /usr/local/rvm/gems/ruby-2.3.0/bin/rspec:23:in `<main>'
-        from /usr/local/rvm/gems/ruby-2.3.0/bin/ruby_executable_hooks:15:in `eval'
-        from /usr/local/rvm/gems/ruby-2.3.0/bin/ruby_executable_hooks:15:in `<main>'
-```
+In order to use public transport
+As a customer
+I want money on my card
 
-The true stack trace error is:
-```
-/home/ubuntu/workspace/spec/oystercard_spec.rb:1:in `<top (required)>': uninitialized constant Oystercard (NameError)
-```
-Line error occuring in : ```/home/ubuntu/workspace/spec/oystercard_spec.rb:1:```
+In order to keep using public transport
+As a customer
+I want to add money to my card
 
-Error solution:
+In order to protect my money
+As a customer
+I don't want to put too much money on my card
 
-create a class in oystercard.rb :
-```
-class Oystercard
-end
-```
+In order to pay for my journey
+As a customer
+I need my fare deducted from my card
 
-```Primary Object → Reference Object → Message```
-**Q.1**
-|Objects|Messages|
-|-:|:-:|
-|Customer||
-|Card|balance|
-**Q.2**
-|Objects|Messages|
-|-:|:-:|
-|Customer||
-|Card|top_up|
-**Q.3**
-|Objects|Messages|
-|-:|:-:|
-|Customer||
-|Card|deduct|
+In order to get through the barriers
+As a customer
+I need to touch in and out
+
+In order to pay for my journey
+As a customer
+I need to have the minimum amount for a single journey
+
+In order to pay for my journey
+As a customer
+I need to pay for my journey when it's complete
+
+In order to pay for my journey
+As a customer
+I need to know where I've travelled from
+
+In order to know where I have been
+As a customer
+I want to see to all my previous trips
+
+In order to know how far I have travelled
+As a customer
+I want to know what zone a station is in
+
+In order to be charged correctly
+As a customer
+I need a penalty charge deducted if I fail to touch in or out
+
+In order to be charged the correct amount
+As a customer
+I need to have the correct fare calculated
+```
